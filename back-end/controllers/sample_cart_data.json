@@ -1,0 +1,44 @@
+[
+    {
+      "email": "john.doe@gmail.com",
+      "products": [
+        {
+          "name": "Ampalaya",
+          "type": "crops",
+          "imgSrc": "/images/crops/ampalaya.jpg",
+          "price": 115,
+          "units": "kg",
+          "qty": 5
+        },
+        {
+          "name": "Apple",
+          "type": "crops",
+          "imgSrc": "/images/crops/apple.jpg",
+          "price": 120,
+          "units": "kg",
+          "qty": 5
+        }
+      ]
+    },
+    {
+        "email": "jane.smith@gmail.com",
+        "products": [
+        {
+            "name": "Avocado",
+            "type": "crops",
+            "imgSrc": "/images/crops/avocado.jpg",
+            "price": 150,
+            "units": "kg",
+            "qty": 2
+        },
+        {
+            "name": "Broccoli",
+            "type": "crops",
+            "imgSrc": "/images/crops/broccoli.png",
+            "price": 85,
+            "units": "kg",
+            "qty": 3
+        }
+        ]
+      }
+]

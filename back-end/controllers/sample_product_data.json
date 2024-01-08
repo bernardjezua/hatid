@@ -1,0 +1,307 @@
+[
+{
+    "name": "Ampalaya",
+    "type": "crops",
+    "imgSrc": "/images/crops/ampalaya.jpg",
+    "price": 115.00,
+    "units": "kg",
+    "qty": 15
+},
+{
+    "name": "Apple",
+    "type": "crops",
+    "imgSrc": "/images/crops/apple.jpg",
+    "price": 120.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Avocado",
+    "type": "crops",
+    "imgSrc": "/images/crops/avocado.jpg",
+    "price": 150.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Broccoli",
+    "type": "crops",
+    "imgSrc": "/images/crops/broccoli.png",
+    "price": 85.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Cabbage",
+    "type": "crops",
+    "imgSrc": "/images/crops/cabbage.jpg",
+    "price": 60.00 ,
+    "units": "kg",
+    "qty": 30
+},
+{
+    "name": "Cantaloupe",
+    "type": "crops",
+    "imgSrc": "/images/crops/cantaloupe.jpg",
+    "price": 130.00 ,
+    "units": "kg",
+    "qty": 10
+},
+{
+    "name": "Carrot",
+    "type": "crops",
+    "imgSrc": "/images/crops/carrot.jpg",
+    "price": 85.00 ,
+    "units": "kg",
+    "qty": 25
+},
+{
+    "name": "Celery",
+    "type": "crops",
+    "imgSrc": "/images/crops/celery.jpg",
+    "price": 100.00 ,
+    "units": "kg",
+    "qty": 30
+},
+{
+    "name": "Corn",
+    "type": "crops",
+    "imgSrc": "/images/crops/corn.jpg",
+    "price": 80.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Cucumber",
+    "type": "crops",
+    "imgSrc": "/images/crops/cucumber.jpg",
+    "price": 120.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Eggplant",
+    "type": "crops",
+    "imgSrc": "/images/crops/eggplant.jpg",
+    "price": 110.00 ,
+    "units": "kg",
+    "qty": 25
+},
+{
+    "name": "Garlic",
+    "type": "crops",
+    "imgSrc": "/images/crops/garlic.jpg",
+    "price": 380.00 ,
+    "units": "kg",
+    "qty": 30
+},
+{
+    "name": "Ginger",
+    "type": "crops",
+    "imgSrc": "/images/crops/ginger.jpg",
+    "price": 135.00 ,
+    "units": "kg",
+    "qty": 25
+},
+{
+    "name": "Grapes",
+    "type": "crops",
+    "imgSrc": "/images/crops/grapes.jpg",
+    "price": 200.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Guava",
+    "type": "crops",
+    "imgSrc": "/images/crops/guava.png",
+    "price": 170.00 ,
+    "units": "kg",
+    "qty": 15
+},
+{
+    "name": "Hazelnut",
+    "type": "crops",
+    "imgSrc": "/images/crops/hazelnut.jpg",
+    "price": 300.00 ,
+    "units": "250g",
+    "qty": 10
+},
+{
+    "name": "Kale",
+    "type": "crops",
+    "imgSrc": "/images/crops/kale.jpg",
+    "price": 400.00 ,
+    "units": "500g",
+    "qty": 15
+},
+
+{
+    "name": "Lemon",
+    "type": "crops",
+    "imgSrc": "/images/crops/lemon.jpg",
+    "price": 20.00 ,
+    "units": "pc",
+    "qty": 50
+},
+{
+    "name": "Lettuce",
+    "type": "crops",
+    "imgSrc": "/images/crops/lettuce.jpg",
+    "price": 120.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Mango",
+    "type": "crops",
+    "imgSrc": "/images/crops/mango.jpg",
+    "price": 130.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Mushroom",
+    "type": "crops",
+    "imgSrc": "/images/crops/mushroom.jpg",
+    "price": 220.00 ,
+    "units": "250g",
+    "qty": 15
+},
+{
+    "name": "Okra",
+    "type": "crops",
+    "imgSrc": "/images/crops/okra.jpg",
+    "price": 95.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Onion",
+    "type": "crops",
+    "imgSrc": "/images/crops/onion.jpg",
+    "price": 120.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Orange",
+    "type": "crops",
+    "imgSrc": "/images/crops/orange.jpg",
+    "price": 30.00 ,
+    "units": "pc",
+    "qty": 50
+},
+{
+    "name": "Papaya",
+    "type": "crops",
+    "imgSrc": "/images/crops/papaya.jpg",
+    "price": 35.00 ,
+    "units": "kg",
+    "qty": 25
+},
+{
+    "name": "Pineapple",
+    "type": "crops",
+    "imgSrc": "/images/crops/pineapple.jpg",
+    "price": 150.00 ,
+    "units": "kg",
+    "qty": 15
+},
+{
+    "name": "Pumpkin",
+    "type": "crops",
+    "imgSrc": "/images/crops/pumpkin.jpg",
+    "price": 195.00 ,
+    "units": "pc",
+    "qty": 30
+},
+{
+    "name": "Radish",
+    "type": "crops",
+    "imgSrc": "/images/crops/radish.jpg",
+    "price": 60.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Spinach",
+    "type": "crops",
+    "imgSrc": "/images/crops/spinach.jpg",
+    "price": 60.00 ,
+    "units": "kg",
+    "qty": 15
+},
+{
+    "name": "Tomato",
+    "type": "crops",
+    "imgSrc": "/images/crops/tomato.jpg",
+    "price": 70.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Turnip",
+    "type": "crops",
+    "imgSrc": "/images/crops/turnip.png",
+    "price": 80.00 ,
+    "units": "kg",
+    "qty": 20
+},
+{
+    "name": "Watermelon",
+    "type": "crops",
+    "imgSrc": "/images/crops/watermelon.jpg",
+    "price": 150.00 ,
+    "units": "pc",
+    "qty": 15
+},
+{
+    "name": "Eggs",
+    "type": "poultry",
+    "imgSrc": "/images/poultry/eggs.jpg",
+    "price": 280.00 ,
+    "units": "tray",
+    "qty": 15
+},
+{
+    "name": "Milk",
+    "type": "poultry",
+    "imgSrc": "/images/poultry/milk.jpeg",
+    "price": 200.00 ,
+    "units": "liter",
+    "qty": 15
+},
+{
+    "name": "Chicken Breast",
+    "type": "poultry",
+    "imgSrc": "/images/poultry/chickenbreast.png",
+    "price": 170.00 ,
+    "units": "kilo",
+    "qty": 15
+},
+{
+    "name": "Chicken Thigh",
+    "type": "poultry",
+    "imgSrc": "/images/poultry/chickenthigh.jpg",
+    "price": 170.00 ,
+    "units": "kilo",
+    "qty": 15
+},
+{
+    "name": "Chicken Wings",
+    "type": "poultry",
+    "imgSrc": "/images/poultry/chickenwings.jpg",
+    "price": 170.00 ,
+    "units": "kilo",
+    "qty": 15
+},
+{
+    "name": "Fresh Chicken",
+    "type": "poultry",
+    "imgSrc": "/images/poultry/freshchicken.jpg",
+    "price": 220.00 ,
+    "units": "pc",
+    "qty": 15
+}
+]
