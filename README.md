@@ -1,12 +1,6 @@
 # CMSC 100 Final Project
 # HATID 🌾
 
-## Group Members
-- Encinares, Daphne Jane (Front-End Dev)
-- Fernandez, Jhin Lois (Front-End Dev)
-- Guerra, Tom Cristian (Back-End Dev)
-- Tandang, Bernard Jezua (Back-End Dev)
-
 ## Project Features
 HATID is an e-commerce platform designed for the Department of Agriculture (DA) to efficiently manage the distribution of agricultural products to the public market. The application is built using the following technology stack: React JS for the front end, Node JS with Express JS for the back end, and MongoDB as the database.
 
