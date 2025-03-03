@@ -1,7 +1,7 @@
 # HATID 🌾
 
 ## Project Features
-HATID is an e-commerce platform designed for the Department of Agriculture (DA) to efficiently manage the distribution of agricultural products to the public market. The application is built using the following technology stack: React JS for the front end, Node JS with Express JS for the back end, and MongoDB as the database.
+HATID is an e-commerce platform design idea for the Department of Agriculture (DA) to efficiently manage the distribution of agricultural products to the public market. The application is built using the following technology stack: React JS for the front end, Node JS with Express JS for the back end, and MongoDB as the database.
 
 ## Usage Guidelines
 
