@@ -1,4 +1,3 @@
-# CMSC 100 Final Project
 # HATID 🌾
 
 ## Project Features
@@ -23,18 +22,6 @@ HATID is an e-commerce platform designed for the Department of Agriculture (DA) 
    - Checkouts need approval by the Admin/Merchant.
    - The Admin/Merchant will review and confirm customer orders before they are considered final and ready for delivery.
    - Admin/Merchant accounts are pre-assigned and do not need to go through the registration process.
-
-## Screenshots of the Application
-![Sign Up](https://cdn.discordapp.com/attachments/1193705588887138354/1193705907423559720/image.png)
-![Sign In](https://cdn.discordapp.com/attachments/1193705588887138354/1193706883572306020/image.png)
-![Homepage](https://cdn.discordapp.com/attachments/1193705588887138354/1193708226835914812/image.png)
-![Homepage](https://cdn.discordapp.com/attachments/1193705588887138354/1193709884722659349/image.png)
-![Products Page](https://cdn.discordapp.com/attachments/1193705588887138354/1193707831187230871/image.png)
-![Add To Cart](https://cdn.discordapp.com/attachments/1193705588887138354/1193707927991762954/image.png)
-![Profile](https://cdn.discordapp.com/attachments/1193705588887138354/1193708043553230978/image.png)
-![Admin Dashboard](https://cdn.discordapp.com/attachments/1193705588887138354/1193708574489186394/image.png)
-![Admin Dashboard](https://cdn.discordapp.com/attachments/1193705588887138354/1193708651412725842/image.png)
-![Admin Dashboard](https://cdn.discordapp.com/attachments/1193705588887138354/1193708781943668836/image.png)
 
 ## How to Run
 1. **Install Dependencies:**
