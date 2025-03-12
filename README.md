@@ -23,6 +23,13 @@ HATID is an e-commerce platform design idea for the Department of Agriculture (D
    - The Admin/Merchant will review and confirm customer orders before they are considered final and ready for delivery.
    - Admin/Merchant accounts are pre-assigned and do not need to go through the registration process.
 
+### Screenshots
+![Login](docs/1.png)
+![Homepage](docs/2.png)
+![Recommended](docs/3.png)
+![Shopping Cart](docs/4.png)
+![Admin Panel](docs/5.png)
+
 ## How to Run
 1. **Install Dependencies:**
    - Run `npm install` to install necessary packages.
