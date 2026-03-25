@@ -54,9 +54,19 @@ export default function NavigationBar() {
 
         {user ? (
           <div className="flex items-center gap-4">
+            <div className="hidden lg:flex flex-col items-end">
+              <p className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest leading-none mb-1">Available Credit</p>
+              <div className="flex items-center gap-1.5 px-3 py-1 bg-primary-forest/10 rounded-full border border-primary-forest/20">
+                 <span className="text-primary-forest text-sm font-black tracking-tight">₱{user.walletBalance?.toLocaleString()}</span>
+                 <div className="h-4 w-4 rounded-full bg-yellow-400 flex items-center justify-center text-[10px] shadow-sm">💰</div>
+              </div>
+            </div>
+            
+            <div className="h-8 w-px bg-neutral-100 hidden lg:block"></div>
+
             <div className="hidden lg:block text-right">
-              <p className="text-xs text-neutral-500 font-medium">Welcome back,</p>
-              <p className="text-sm font-bold text-primary-forest leading-tight">{user.name}</p>
+              <p className="text-xs text-neutral-500 font-medium">Welcome,</p>
+              <p className="text-sm font-black text-primary-900 leading-tight">{user.name}</p>
             </div>
             <Link to="/profile" className="p-2.5 bg-neutral-100 rounded-full hover:bg-primary-sage/20 transition-all">
               <UserIcon />

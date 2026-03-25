@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { UIProvider } from './context/UIContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import './index.css';
@@ -78,7 +79,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <UIProvider>
+        <RouterProvider router={router} />
+      </UIProvider>
     </AuthProvider>
   </React.StrictMode>
 );

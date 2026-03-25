@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUI } from '../context/UIContext';
 
 export default function AdminOrders() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { showToast } = useUI();
 
   const fetchOrders = async () => {
     try {
@@ -37,8 +39,8 @@ export default function AdminOrders() {
 
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
-      const response = await fetch(`http://127.0.0.1:3001/api/orders/${orderId}/status`, {
-        method: "PATCH", // Production standard: PATCH for status updates
+      const response = await fetch(`http://127.0.0.1:3001/api/orders/${orderId}`, {
+        method: "PATCH",
         headers: { 
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -49,20 +51,22 @@ export default function AdminOrders() {
       const body = await response.json();
       
       if (body.success) {
+        showToast(`Order ${newStatus}`, "success");
         fetchOrders(); // Refresh table
       } else {
-        alert(body.message || "Failed to update order status");
+        showToast(body.message || "Failed to update order status", "error");
       }
     } catch (error) {
       console.error("Error updating order:", error);
-      alert("An unexpected error occurred.");
+      showToast("An unexpected error occurred.", "error");
     }
   };
 
   const getStatusColor = (status) => {
     const s = status?.toLowerCase();
     switch(s) {
-        case 'approved': return 'bg-green-100 text-green-800 border-green-200';
+        case 'approved': return 'bg-blue-100 text-blue-800 border-blue-200';
+        case 'received': return 'bg-green-100 text-green-800 border-green-200';
         case 'declined': return 'bg-red-100 text-red-800 border-red-200';
         default: return 'bg-yellow-100 text-yellow-800 border-yellow-200';
     }
@@ -87,6 +91,7 @@ export default function AdminOrders() {
               <th className="p-4 font-semibold">Customer</th>
               <th className="p-4 font-semibold">Total Amount</th>
               <th className="p-4 font-semibold">Status</th>
+              <th className="p-4 font-semibold text-center">Admin Reviewer</th>
               <th className="p-4 font-semibold text-right">Actions</th>
             </tr>
           </thead>
@@ -116,25 +121,49 @@ export default function AdminOrders() {
                         {order.status}
                     </span>
                   </td>
-                  <td className="p-4 text-right h-full align-middle">
-                    {order.status?.toLowerCase() === 'pending' ? (
-                        <div className="flex items-center justify-end gap-2 text-white">
-                            <button 
-                                onClick={() => handleUpdateStatus(order._id, 'approved')}
-                                className="text-[10px] font-black uppercase bg-primary-forest hover:bg-green-700 px-4 py-2 rounded-xl transition-all shadow-sm"
-                            >
-                                Approve
-                            </button>
-                            <button 
-                                onClick={() => handleUpdateStatus(order._id, 'declined')}
-                                className="text-[10px] font-black uppercase bg-red-500 hover:bg-red-600 px-4 py-2 rounded-xl transition-all"
-                            >
-                                Decline
-                            </button>
-                        </div>
+                  <td className="p-4 h-full align-middle text-center">
+                    {order.approvedBy ? (
+                        <span className="text-[10px] font-black text-primary-forest bg-primary-sage/20 px-2 py-1 rounded-md uppercase tracking-tighter shadow-sm border border-primary-sage/30">
+                            {order.approvedBy.firstName}
+                        </span>
                     ) : (
-                        <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest italic">Archived</span>
+                        <span className="text-[10px] font-bold text-neutral-300 uppercase italic">Unassigned</span>
                     )}
+                  </td>
+                  <td className="p-4 text-right h-full align-middle">
+                    <div className="flex items-center justify-end gap-2 text-white">
+                        {order.status?.toLowerCase() === 'pending' ? (
+                          <>
+                            <button 
+                              onClick={() => handleUpdateStatus(order._id, 'approved')}
+                              className="px-3 py-1.5 bg-accent-olive text-[10px] font-black uppercase rounded-lg shadow-sm hover:scale-105 transition-all"
+                            >
+                              Approve
+                            </button>
+                            <button 
+                              onClick={() => handleUpdateStatus(order._id, 'declined')}
+                              className="px-3 py-1.5 bg-red-500 text-[10px] font-black uppercase rounded-lg shadow-sm hover:scale-105 transition-all"
+                            >
+                              Decline
+                            </button>
+                          </>
+                        ) : order.status?.toLowerCase() !== 'received' ? (
+                          <button 
+                            onClick={() => {
+                              const nextStatus = order.status?.toLowerCase() === 'approved' ? 'declined' : 'approved';
+                              handleUpdateStatus(order._id, nextStatus);
+                            }}
+                            className="px-4 py-1.5 bg-primary-forest text-[10px] font-black uppercase rounded-lg shadow-sm hover:scale-105 transition-all flex items-center gap-2"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 110 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+                            </svg>
+                            Change Status
+                          </button>
+                        ) : (
+                          <span className="text-[10px] font-bold text-neutral-300 uppercase italic px-4">Locked</span>
+                        )}
+                    </div>
                   </td>
                 </tr>
               ))

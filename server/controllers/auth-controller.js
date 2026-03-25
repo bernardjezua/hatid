@@ -72,7 +72,9 @@ export const login = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        role: user.role
+        role: user.role,
+        walletBalance: user.walletBalance,
+        avatar: user.avatar
       }
     });
   } catch (err) {
@@ -112,13 +114,39 @@ export const checkIfLoggedIn = async (req, res) => {
       return res.status(200).json({ 
         isLoggedIn: true, 
         role: user.role,
-        user: { name: `${user.firstName} ${user.lastName}`, email: user.email }
+        user: { 
+          name: `${user.firstName} ${user.lastName}`, 
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          walletBalance: user.walletBalance,
+          avatar: user.avatar
+        }
       });
-    } else {
-      return res.status(401).json({ isLoggedIn: false });
     }
+    return res.status(401).json({ isLoggedIn: false });
   } catch (error) {
     return res.status(401).json({ isLoggedIn: false });
   }
 };
 
+export const updateProfile = async (req, res) => {
+  try {
+    const { firstName, lastName, avatar } = req.body;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
+    if (avatar) user.avatar = avatar;
+
+    await user.save();
+    res.status(200).json({ success: true, user: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      avatar: user.avatar
+    }});
+  } catch (err) {
+    res.status(500).json({ success: false, message: 'Server Error' });
+  }
+};

@@ -8,7 +8,19 @@ export default function Profile({ user }) {
       <div className="relative mb-6">
         <div className="h-24 w-24 rounded-full bg-gradient-to-tr from-primary-forest to-accent-olive p-1 shadow-lg">
           <div className="h-full w-full rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-white">
-            <span className="text-3xl font-black text-primary-forest">
+            {user.avatar ? (
+              <img 
+                src={user.avatar} 
+                alt={user.name} 
+                className="h-full w-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'block';
+                }}
+              />
+            ) : null}
+            <span className={`text-3xl font-black text-primary-forest ${user.avatar ? 'hidden' : 'block'}`}>
               {user.name.charAt(0).toUpperCase()}
             </span>
           </div>

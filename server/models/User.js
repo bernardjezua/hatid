@@ -35,6 +35,10 @@ const UserSchema = new Schema({
   },
   address: String,  // Include address for shipping purposes
   phoneNumber: String,  // Include phone number for contact
+  walletBalance: { 
+    type: Number, 
+    default: 5000 
+  },
   cart: [{ 
     product: { type: Types.ObjectId, ref: 'Product' },
     quantity: { type: Number, default: 1 }

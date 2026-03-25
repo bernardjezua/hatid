@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useUI } from '../context/UIContext';
 
 export default function ShoppingCart() {
     const navigate = useNavigate();
-    const { user, cart, updateQuantity, removeFromCart, clearCart } = useAuth();
+    const { user, cart, updateQuantity, removeFromCart, clearCart, checkLoginStatus } = useAuth();
+    const { showConfirm, showToast } = useUI();
     const [isCheckingOut, setIsCheckingOut] = useState(false);
 
     const getTotal = () => {
@@ -15,7 +17,7 @@ export default function ShoppingCart() {
         if (cart.length === 0) return;
         
         if (!user) {
-            alert("Please log in to checkout.");
+            showToast("Please log in to checkout.", 'error');
             navigate('/login');
             return;
         }
@@ -44,15 +46,16 @@ export default function ShoppingCart() {
             const body = await response.json();
             
             if (body.success) {
-                alert("Order placed successfully! Waiting for admin approval.");
+                showToast("Order placed successfully! Your wallet has been updated.", 'success');
                 clearCart();
+                checkLoginStatus(); // Refresh balance in UI
                 navigate('/');
             } else {
-                alert(body.message || "Checkout failed");
+                showToast(body.message || "Checkout failed", "error");
             }
         } catch (error) {
             console.error("Error during checkout:", error);
-            alert("An unexpected error occurred. Please try again.");
+            showToast("An unexpected error occurred. Please try again.", "error");
         } finally {
             setIsCheckingOut(false);
         }
@@ -101,10 +104,12 @@ export default function ShoppingCart() {
                                         <h3 className="font-bold text-lg text-primary-900">{item.name}</h3>
                                         <p className="text-sm text-neutral-500 capitalize">{item.category}</p>
                                         <button 
-                                            onClick={() => {
-                                                if (window.confirm("Are you sure you want to delete this item from your cart?")) {
-                                                    removeFromCart(item._id);
-                                                }
+                                            onClick={async () => {
+                                                const confirmed = await showConfirm({
+                                                    title: "Remove Item?",
+                                                    message: `Remove ${item.name} from your cart?`
+                                                });
+                                                if (confirmed) removeFromCart(item._id);
                                             }}
                                             className="text-sm text-red-500 hover:text-red-700 mt-1 sm:hidden font-medium"
                                         >
@@ -121,11 +126,13 @@ export default function ShoppingCart() {
                                 <div className="col-span-1 sm:col-span-2 flex sm:justify-center">
                                     <div className="flex items-center border border-neutral-300 rounded-md overflow-hidden w-24 h-8 bg-white">
                                         <button 
-                                            onClick={() => {
+                                            onClick={async () => {
                                                 if (item.quantity === 1) {
-                                                    if (window.confirm("Are you sure you want to delete this item from your cart?")) {
-                                                        updateQuantity(item._id, -1);
-                                                    }
+                                                    const confirmed = await showConfirm({
+                                                        title: "Remove Item?",
+                                                        message: `Remove ${item.name} from your cart?`
+                                                    });
+                                                    if (confirmed) updateQuantity(item._id, -1);
                                                 } else {
                                                     updateQuantity(item._id, -1);
                                                 }
@@ -145,10 +152,12 @@ export default function ShoppingCart() {
                                     <div className="flex items-center gap-4">
                                         ₱{(item.price * (item.quantity || 1)).toLocaleString()}
                                         <button 
-                                            onClick={() => {
-                                                if (window.confirm("Are you sure you want to delete this item from your cart?")) {
-                                                    removeFromCart(item._id);
-                                                }
+                                            onClick={async () => {
+                                                const confirmed = await showConfirm({
+                                                    title: "Remove Item?",
+                                                    message: `Remove ${item.name} from your cart?`
+                                                });
+                                                if (confirmed) removeFromCart(item._id);
                                             }}
                                             className="hidden sm:flex text-red-400 hover:text-red-600 transition p-1 hover:bg-red-50 rounded"
                                             title="Remove item"
@@ -165,9 +174,15 @@ export default function ShoppingCart() {
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6 max-w-md ml-auto">
-                    <div className="flex justify-between items-center mb-6 border-b border-neutral-200 pb-4">
-                        <span className="text-lg text-neutral-600 font-medium">Order Total</span>
-                        <span className="text-3xl font-bold text-primary-800">₱{getTotal().toFixed(2)}</span>
+                    <div className="space-y-4 mb-6 border-b border-neutral-200 pb-6">
+                        <div className="flex justify-between items-center text-sm font-bold uppercase tracking-widest text-neutral-400">
+                             <span>Wallet Balance</span>
+                             <span className="text-primary-forest">₱{user?.walletBalance?.toLocaleString() || '0'}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <span className="text-lg text-neutral-600 font-medium">Order Total</span>
+                            <span className="text-3xl font-bold text-primary-800">₱{getTotal().toLocaleString()}</span>
+                        </div>
                     </div>
                     <button 
                         onClick={handleCheckout}
@@ -181,8 +196,8 @@ export default function ShoppingCart() {
                             </span>
                         ) : 'Confirm Checkout'}
                     </button>
-                    <p className="text-sm text-neutral-500 text-center mt-4">
-                        Payment will be collected upon delivery/pickup.
+                    <p className="text-sm text-neutral-500 text-center mt-4 italic font-medium">
+                        Amount will be automatically deducted from your HATID Wallet.
                     </p>
                 </div>
             </div>

@@ -10,7 +10,9 @@ export default function AdminNavigationBar() {
     <header className="glass-nav px-8 py-4 flex items-center justify-between shadow-soft">
       <div className="flex items-center gap-8">
         <Link to="/admin" className="flex items-center gap-3 group">
-          <img className="h-10 w-auto transition-transform group-hover:scale-110" src={logo} alt="logo" />
+          <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-forest shadow-premium">
+            <img className="h-full w-full object-cover transition-transform group-hover:scale-110" src={logo} alt="logo" />
+          </div>
           <div className="flex flex-col">
             <span className="text-xl font-black text-primary-forest tracking-tighter leading-none">HATID</span>
             <span className="text-[10px] font-bold text-accent-olive uppercase tracking-[0.2em]">Admin Portal</span>

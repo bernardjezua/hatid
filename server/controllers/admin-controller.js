@@ -31,3 +31,39 @@ export const getFinancialOverview = async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to fetch analytics' });
   }
 };
+
+export const updateUserRole = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { role } = req.body;
+    
+    if (!['customer', 'admin'].includes(role)) {
+      return res.status(400).json({ success: false, message: 'Invalid role' });
+    }
+
+    const user = await User.findByIdAndUpdate(id, { role }, { new: true });
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+    
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to update user role' });
+  }
+};
+
+export const updateUserWallet = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { balance } = req.body;
+    
+    if (typeof balance !== 'number' || balance < 0) {
+      return res.status(400).json({ success: false, message: 'Invalid balance amount' });
+    }
+
+    const user = await User.findByIdAndUpdate(id, { walletBalance: balance }, { new: true });
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+    
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to update wallet balance' });
+  }
+};

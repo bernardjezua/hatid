@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useUI } from '../context/UIContext';
 
 export default function CardMainPage({ products, cols = 4 }) {
   const { cart, addToCart, updateQuantity } = useAuth();
+  const { showConfirm } = useUI();
   const [addingId, setAddingId] = useState(null);
 
   if (!products || products.length === 0) return null;
@@ -67,10 +69,14 @@ export default function CardMainPage({ products, cols = 4 }) {
                  {quantity > 0 ? (
                     <div className="flex items-center bg-neutral-50 rounded-full border border-neutral-200 p-0.5">
                         <button 
-                            onClick={(e) => { 
+                            onClick={async (e) => { 
                                 e.preventDefault(); 
                                 if (quantity === 1) {
-                                    if (window.confirm("Are you sure you want to delete this item from your cart?")) {
+                                    const confirmed = await showConfirm({
+                                        title: "Remove from Cart?",
+                                        message: `Are you sure you want to remove ${product.name} from your cart?`
+                                    });
+                                    if (confirmed) {
                                         updateQuantity(product._id, -1);
                                     }
                                 } else {

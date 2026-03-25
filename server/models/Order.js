@@ -17,6 +17,9 @@ const OrderSchema = new Schema({
         type: Number, 
         required: true 
       },
+      name: String,
+      price: Number,
+      imageUrl: String
     },
   ],
   totalAmount: { 
@@ -29,9 +32,13 @@ const OrderSchema = new Schema({
   },
   status: { 
     type: String, 
-    enum: ['pending', 'approved', 'declined'],
+    enum: ['pending', 'approved', 'received', 'declined'],
     default: 'pending' 
   },
+  approvedBy: {
+    type: Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 export default model('Order', OrderSchema);

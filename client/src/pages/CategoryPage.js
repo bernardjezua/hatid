@@ -135,6 +135,7 @@ export default function CategoryPage() {
             productType={categoryName} 
             onSearch={setSearchTerm} 
             onSort={setSortType} 
+            resultsCount={filteredProducts.length}
           />
           
           <div className="mt-8">

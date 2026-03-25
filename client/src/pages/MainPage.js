@@ -4,12 +4,12 @@ import { useAuth } from '../context/AuthContext';
 import CardProducts from '../components/CardMainPage';
 
 // Categories data
-const CATEGORIES = [
-  { name: 'Seeds & Crops', icon: '🌱', slug: 'crops', count: '120+ Items' },
-  { name: 'Organic Fertilizers', icon: '🪱', slug: 'fertilizers', count: '45+ Items' },
-  { name: 'Heavy Machinery', icon: '🚜', slug: 'machinery', count: '12+ Items' },
-  { name: 'Livestock Feed', icon: '🐔', slug: 'poultry', count: '80+ Items' },
-  { name: 'Fresh Produce', icon: '🍎', slug: 'produce', count: '200+ Items' },
+const CATEGORIES_BASE = [
+  { name: 'Seeds & Crops', icon: '🌱', slug: 'crops' },
+  { name: 'Organic Fertilizers', icon: '🪱', slug: 'fertilizers' },
+  { name: 'Heavy Machinery', icon: '🚜', slug: 'machinery' },
+  { name: 'Livestock Feed', icon: '🐔', slug: 'poultry' },
+  { name: 'Fresh Produce', icon: '🍎', slug: 'produce' },
 ];
 
 export default function MainPage() {
@@ -28,6 +28,14 @@ export default function MainPage() {
       .catch(err => console.error("Failed to fetch products:", err))
       .finally(() => setLoading(false));
   }, []);
+
+  // Augmented categories with dynamic counts
+  const categories = useMemo(() => {
+    return CATEGORIES_BASE.map(cat => ({
+      ...cat,
+      count: `${products.filter(p => p.category === cat.name).length} Items`
+    }));
+  }, [products]);
 
   // Logical splits for layout - MEMOIZED to prevent "disappearing" bug on re-renders
   const featuredProducts = useMemo(() => products.slice(0, 3), [products]);
@@ -98,7 +106,7 @@ export default function MainPage() {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl text-primary-forest text-center mb-16">Browse Categories</h2>
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-6">
-            {CATEGORIES.map((cat, i) => (
+            {categories.map((cat, i) => (
               <Link key={i} to={`/category/${cat.slug}`} className="bento-card text-center flex flex-col items-center justify-center hover:bg-white active:scale-95">
                 <span className="text-5xl mb-4 group-hover:scale-125 transition-transform">{cat.icon}</span>
                 <h3 className="text-lg font-bold text-primary-900">{cat.name}</h3>

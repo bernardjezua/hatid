@@ -48,7 +48,9 @@ export const AuthProvider = ({ children }) => {
         setUser({
           role: body.role,
           name: body.user?.name || localStorage.getItem('userName') || 'Farmer',
-          email: body.user?.email || localStorage.getItem('userEmail') || ''
+          email: body.user?.email || localStorage.getItem('userEmail') || '',
+          walletBalance: body.user?.walletBalance ?? 0,
+          avatar: body.user?.avatar
         });
         // Fetch cart from server
         fetchCart(token);
@@ -100,7 +102,9 @@ export const AuthProvider = ({ children }) => {
     setUser({
         role: userData.role,
         name: `${userData.firstName} ${userData.lastName}`,
-        email: userData.email
+        email: userData.email,
+        walletBalance: userData.walletBalance ?? 5000,
+        avatar: userData.avatar
     });
     fetchCart(token);
   };
@@ -160,6 +164,10 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     checkLoginStatus();
+    
+    // Background polling for dynamic balance updates (every 30s)
+    const interval = setInterval(checkLoginStatus, 30000);
+    return () => clearInterval(interval);
   }, [checkLoginStatus]);
 
   return (

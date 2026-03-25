@@ -50,6 +50,7 @@ export default function AllProductsPage() {
                 productType="All Products" 
                 onSearch={setSearchTerm} 
                 onSort={setSortType} 
+                resultsCount={filteredProducts.length}
             />
 
             <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-8">
@@ -87,7 +88,7 @@ export default function AllProductsPage() {
                     {filteredProducts.length > 0 ? (
                         <CardProducts products={filteredProducts} cols={3} />
                     ) : (
-                        <div className="bg-white rounded-3xl p-20 text-center border border-dashed border-neutral-200">
+                        <div className="p-20 text-center">
                             <span className="text-6xl mb-4 block">🚜</span>
                             <h3 className="text-xl font-bold text-primary-900 mb-2">No items match your filters</h3>
                             <p className="text-neutral-500">Try adjusting your search or category selection.</p>
