@@ -19,6 +19,39 @@ export default function AdminInventory() {
 
     const CATEGORIES = ['Seeds & Crops', 'Organic Fertilizers', 'Heavy Machinery', 'Livestock Feed', 'Fresh Produce'];
 
+    // Filter & Sort State
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filterCategory, setFilterCategory] = useState("All");
+    const [sortType, setSortType] = useState("Name");
+
+    // Derived State: Filtered & Sorted Products
+    const filteredProducts = React.useMemo(() => {
+        let result = [...products];
+
+        // Search Filter
+        if (searchTerm) {
+            result = result.filter(p => 
+                p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                p.description.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+
+        // Category Filter
+        if (filterCategory !== "All") {
+            result = result.filter(p => p.category === filterCategory);
+        }
+
+        // Sort Logic
+        result.sort((a, b) => {
+            if (sortType === "Price: Low to High") return a.price - b.price;
+            if (sortType === "Price: High to Low") return b.price - a.price;
+            if (sortType === "Stock: Low") return a.stockQuantity - b.stockQuantity;
+            return a.name.localeCompare(b.name);
+        });
+
+        return result;
+    }, [products, searchTerm, filterCategory, sortType]);
+
     const fetchProducts = useCallback(async () => {
         setLoading(true);
         try {
@@ -106,14 +139,50 @@ export default function AdminInventory() {
 
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <h3 className="text-xl font-black text-primary-900">Active Inventory</h3>
-                <button 
+                <button
                     onClick={() => { setEditingProduct(null); setModalOpen(true); }}
-                    className="px-6 py-2 bg-primary-forest text-white rounded-xl font-bold text-sm shadow-lg hover:bg-primary-900 transition-all"
+                    className="w-full md:w-auto px-6 py-2 bg-primary-forest text-white rounded-xl font-bold text-sm shadow-lg hover:bg-primary-900 transition-all"
                 >
                     + Add Product
                 </button>
+            </div>
+
+            {/* Advanced Admin Filters */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white p-4 rounded-2xl border border-neutral-100 shadow-sm">
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Search product name or vendor..."
+                        className="w-full pl-9 pr-4 py-2 bg-neutral-light border-none rounded-xl text-xs font-bold focus:ring-2 focus:ring-primary-sage transition-all"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+
+                <select
+                    value={filterCategory}
+                    onChange={(e) => setFilterCategory(e.target.value)}
+                    className="w-full px-4 py-2 bg-neutral-light border-none rounded-xl text-xs font-bold focus:ring-2 focus:ring-primary-sage outline-none"
+                >
+                    <option value="All">All Categories</option>
+                    {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+
+                <select
+                    value={sortType}
+                    onChange={(e) => setSortType(e.target.value)}
+                    className="w-full px-4 py-2 bg-neutral-light border-none rounded-xl text-xs font-bold focus:ring-2 focus:ring-primary-sage outline-none"
+                >
+                    <option value="Name">Sort by Name</option>
+                    <option value="Price: Low to High">Price: Low to High</option>
+                    <option value="Price: High to Low">Price: High to Low</option>
+                    <option value="Stock: Low">Stock: Low First</option>
+                </select>
             </div>
 
             {loading ? (
@@ -131,7 +200,7 @@ export default function AdminInventory() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-neutral-50">
-                            {products.map(p => (
+                            {filteredProducts.map(p => (
                                 <tr key={p._id} className="hover:bg-neutral-50/50 transition-colors">
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">

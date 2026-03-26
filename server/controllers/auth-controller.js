@@ -22,19 +22,25 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Production Admin Hardcoded Check
-    if (email === "admin@hatid.rbck.app" && password === "rebberchicken@1") {
-      return res.status(200).json({
-        success: true,
-        token: "admin-root-token-hatid-prod", // In production, we'd sign a real JWT, but for this specific check:
-        user: {
-          id: "admin-root-id",
-          firstName: "Root",
-          lastName: "Admin",
-          email: "admin@hatid.rbck.app",
-          role: "admin"
-        }
-      });
+    // Production Admin Hardcoded Check (via Env)
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+
+    if (email === adminEmail) {
+      const isAdminMatch = await bcrypt.compare(password, adminPasswordHash);
+      if (isAdminMatch) {
+        return res.status(200).json({
+          success: true,
+          token: "admin-root-token-hatid-prod", // In production, we'd sign a real JWT, but for this specific check:
+          user: {
+            id: "admin-root-id",
+            firstName: "Root",
+            lastName: "Admin",
+            email: adminEmail,
+            role: "admin"
+          }
+        });
+      }
     }
 
     console.log("Step 1: Finding user for email:", email);
@@ -102,7 +108,7 @@ export const checkIfLoggedIn = async (req, res) => {
        return res.status(200).json({ 
          isLoggedIn: true, 
          role: 'admin',
-         user: { name: 'Root Admin', email: 'admin@hatid.rbck.app' }
+         user: { name: 'Root Admin', email: process.env.ADMIN_EMAIL }
        });
     }
 

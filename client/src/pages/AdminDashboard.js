@@ -49,7 +49,6 @@ export default function AdminDashboard() {
         <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <h1 className="text-4xl font-black text-primary-900 tracking-tighter">Control Center</h1>
-            <p className="text-neutral-500 mt-2 font-medium italic">Production Admin: Root Access Verified</p>
           </div>
           
           <div className="flex bg-white p-1 rounded-2xl shadow-soft border border-neutral-100 flex-wrap">

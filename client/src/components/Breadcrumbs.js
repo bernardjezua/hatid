@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+const CATEGORY_SLUGS = {
+  'Seeds & Crops': 'crops',
+  'Organic Fertilizers': 'fertilizers',
+  'Heavy Machinery': 'machinery',
+  'Livestock Feed': 'poultry',
+  'Fresh Produce': 'produce'
+};
+
 const Breadcrumbs = ({ category, product }) => {
   const location = useLocation();
   
@@ -10,9 +18,10 @@ const Breadcrumbs = ({ category, product }) => {
   ];
 
   if (category) {
+    const slug = CATEGORY_SLUGS[category] || category.toLowerCase();
     segments.push({ 
-      name: category.charAt(0).toUpperCase() + category.slice(1).toLowerCase(), 
-      path: `/category/${category.toLowerCase()}` 
+      name: category, 
+      path: `/category/${slug}` 
     });
   }
 

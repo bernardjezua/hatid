@@ -63,14 +63,23 @@ export default function ShoppingCart() {
 
     if (cart.length === 0) {
         return (
-            <div className="min-h-screen bg-neutral-light flex flex-col items-center justify-center pt-10 pb-20">
-                <h2 className="text-3xl font-bold text-primary-900 mb-4">Your Cart is Empty</h2>
-                <p className="text-neutral-500 mb-8">Looks like you haven't added any fresh produce yet.</p>
+            <div className="min-h-screen bg-neutral-light flex flex-col items-center justify-center pt-10 pb-20 px-6">
+                <div className="relative mb-8">
+                    <div className="w-32 h-32 bg-primary-sage/10 rounded-full flex items-center justify-center text-6xl animate-pulse">
+                        🛒
+                    </div>
+                    <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg border border-neutral-100 text-xl">
+                        🍃
+                    </div>
+                </div>
+                <h2 className="text-4xl font-black text-primary-900 mb-4 tracking-tighter text-center">Your Cart is Empty</h2>
+                <p className="text-neutral-500 mb-10 text-center font-medium max-w-sm">Looks like you haven't added any fresh harvest or supplies yet. Let's get growing!</p>
                 <button 
                     onClick={() => navigate('/products')}
-                    className="bg-primary-600 text-white px-6 py-3 rounded-lg shadow-sm hover:bg-primary-700 transition"
+                    className="btn-forest !px-12 !py-4 shadow-xl shadow-primary-forest/20 flex items-center gap-3 group"
                 >
-                    Browse Products
+                    <span>Browse Products</span>
+                    <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
                 </button>
             </div>
         );
